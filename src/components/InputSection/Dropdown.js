@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Select,{ components} from 'react-select';
-import { ReactComponent as ArrowDown } from '../assets/arrow_down.svg'
+import { ReactComponent as ArrowDown } from '../../assets/arrow_down.svg'
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },

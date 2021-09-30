@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { ReactComponent as Search } from '../assets/search.svg'
+import { ReactComponent as Search } from '../../assets/search.svg'
 
 export default function SearchBox() {
   const [isVisible, setIsVisible] = useState(true)

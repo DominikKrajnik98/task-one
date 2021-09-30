@@ -67,3 +67,60 @@ header{
 .placeholder{
   color: #484F53;
 }
+
+.tabel-container{
+  margin-top: 25px;
+}
+
+.tabel-container table{
+  background: #FFFFFF;
+  box-shadow: 0px 2px 18px #DDE3EC;
+  border-radius: 5px;
+  text-align: left;
+  border-collapse: collapse;
+  width: 1387px;
+}
+
+.tabel-container table th {
+  border-bottom: 1px solid #CBD4E2;
+}
+
+.tabel-container table td {
+  border-bottom: 1px solid #E5EAF0;
+}
+
+.tabel-container table thead{
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 130%;
+  color: #484F53;
+}
+.tabel-container table tbody{
+  font-size: 15px;
+}
+
+.tabel-container table th:first-child,td:first-child{
+  padding-left: 24px;
+  padding-right: 8px;
+  width: 18px;
+}
+
+.tabel-container table th,td{
+  padding-left: 16px;
+  padding-top: 12px;
+  padding-bottom:12px;
+  padding-right: 0px;
+}
+
+.tabel-container table input{
+  width: 18px;
+  height: 18px;
+  background: #FFFFFF;
+  border: 1px solid #BAC6D8;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin:0px;
+}
+.position-right{
+  float:right;
+}
