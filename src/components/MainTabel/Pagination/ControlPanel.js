@@ -1,42 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ControlButton from './ControlButton'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { ReactComponent as ArrowLeft } from '../../../assets/arrow-left.svg'
 import { ReactComponent as ArrowRight } from '../../../assets/arrow-right.svg'
-import {increaseCurrentPage, decreaseCurrentPage, setCurrentPage} from '../../../actions/currentPageActions'
-import {getAnotherPageOfCharacters} from '../../../actions/characterActions'
+import {
+  increaseCurrentPage,
+  decreaseCurrentPage,
+  setCurrentPage,
+} from '../../../actions/currentPageActions'
 
 export default function ControlPanel() {
   const CHARACTERS_PER_VIEW = 10
   const pageCount = Math.ceil(
     useSelector(state => state.characters.totalCount) / CHARACTERS_PER_VIEW
   )
-	const dispatch = useDispatch()
+  const [disableButton, setDisableButton] = useState(false)
+  const dispatch = useDispatch()
 
   const currentPage = useSelector(state => state.currentPage)
 
   const setPageNumber = number => {
     dispatch(setCurrentPage(number))
-    dispatch(getAnotherPageOfCharacters(number))
   }
 
-  const increasePageNumber = () => {
-    if(currentPage<pageCount){
-			dispatch(increaseCurrentPage())
-      dispatch(getAnotherPageOfCharacters(currentPage + 1))
-		}
+  const increasePageNumber = async () => {
+    if (currentPage < pageCount) {
+      setDisableButton(true)
+      await dispatch(increaseCurrentPage(currentPage))
+      setDisableButton(false)
+    }
   }
 
-  const decreasePageNumber = () => {
-    if(currentPage>1){
-			dispatch(decreaseCurrentPage())
-      dispatch(getAnotherPageOfCharacters(currentPage - 1))
-		}
+  const decreasePageNumber = async () => {
+    if (currentPage > 1) {
+      setDisableButton(true)
+      await dispatch(decreaseCurrentPage(currentPage))
+      setDisableButton(false)
+    }
   }
 
   return (
     <div className="control-panel">
-      <ControlButton icon={<ArrowLeft />} handleClick={decreasePageNumber} />
+      <ControlButton
+        icon={<ArrowLeft />}
+        handleClick={decreasePageNumber}
+        disabled={disableButton}
+      />
       <ControlButton
         icon={
           currentPage === 1
@@ -92,7 +101,11 @@ export default function ControlPanel() {
       {pageCount >= 4 && currentPage + 1 < pageCount && (
         <ControlButton icon={pageCount} handleClick={setPageNumber} />
       )}
-      <ControlButton icon={<ArrowRight />} handleClick={increasePageNumber} />
+      <ControlButton
+        icon={<ArrowRight />}
+        handleClick={increasePageNumber}
+        disabled={disableButton}
+      />
     </div>
   )
 }

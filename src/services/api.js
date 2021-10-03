@@ -1,8 +1,13 @@
 import axios from 'axios'
 
-const getData = async nextUrl => {
-  const response = await axios.get(nextUrl)
+const getData = async url => {
+  const response = await axios.get(url)
   return response.data
 }
 
-export default { getData }
+const getPage = async (url, number) => {
+  const respone = await axios.get(url + number)
+  return respone.data
+}
+
+export default { getData, getPage }

@@ -2,16 +2,11 @@ import React, { useState } from 'react'
 import Select, { components } from 'react-select'
 import { ReactComponent as ArrowDown } from '../../assets/arrow_down.svg'
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-]
-
 const customStyles = {
   valueContainer: provided => ({
     ...provided,
     color: '#484F53',
+    display: 'flex',
   }),
   placeholder: provided => ({
     ...provided,
@@ -25,11 +20,12 @@ const customStyles = {
   control: provided => ({
     ...provided,
     height: '40px',
-    width: '110px',
+    width: '130px',
     background: '#FFFFFF',
     border: '1px solid #BAC6D8',
     color: '#484F53',
     borderRadius: '5px',
+    display: 'flex',
   }),
 }
 
@@ -69,9 +65,11 @@ const Option = props => {
 export default function Dropdown(props) {
   const [selectedOption, setSelectedOption] = useState(null)
 
-  function handleChange(selectedOption) {
-    console.log(`Option selected:`, selectedOption)
-    setSelectedOption(selectedOption)
+  function handleChange(newOption) {
+    setSelectedOption(newOption)
+    if (selectedOption !== null && selectedOption.value === newOption.value) {
+      setSelectedOption(null)
+    }
   }
 
   return (
@@ -79,7 +77,7 @@ export default function Dropdown(props) {
       <Select
         value={selectedOption}
         placeholder={props.placeholder}
-        isMulti
+        isMulti={props.isMutli}
         closeMenuOnSelect={false}
         hideSelectedOptions={false}
         components={{
@@ -90,9 +88,11 @@ export default function Dropdown(props) {
           DropdownIndicator: () => <ArrowDown className="arrow-dropdown" />,
         }}
         onChange={handleChange}
-        options={options}
+        options={props.options}
         isSearchable={false}
+        isClearable={true}
         styles={customStyles}
+        onMenuScrollToBottom={props.updateList}
       />
     </div>
   )
