@@ -7,8 +7,8 @@ const getInitialCharacters = async () => {
   return response.data
 }
 
-const getAdditionalCharacters = async nextUrl => {
-  const response = await axios.get(nextUrl)
+const getAdditionalCharacters = async pageNumber => {
+  const response = await axios.get(baseUrl + `/?page=${pageNumber}`)
   return response.data
 }
 

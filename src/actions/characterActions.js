@@ -5,10 +5,12 @@ import {
   preparUrlsToFetch,
 } from '../utils/handleCharacters'
 import api from '../services/api'
+
 export const initializeCharacters = () => {
   return async dispach => {
     const data = await charactersService.getInitialCharacters()
     const apiCharacters = data.results
+    console.log(data)
     const urlsMap = await fetchAdditionalData(apiCharacters)
     const charactersWithRewritedUrls = rewriteUrlsToNames(
       apiCharacters,
@@ -27,15 +29,24 @@ export const initializeCharacters = () => {
   }
 }
 
-export const getAdditionalCharacters = () => {
+export const getAnotherPageOfCharacters = pageNumber => {
   return async dispach => {
-    const data = await charactersService.getInitialCharacters()
+    const data = await charactersService.getAdditionalCharacters(pageNumber)
+    const apiCharacters = data.results
+    console.log(data)
+    const urlsMap = await fetchAdditionalData(apiCharacters)
+    const charactersWithRewritedUrls = rewriteUrlsToNames(
+      apiCharacters,
+      urlsMap
+    )
     const characters = {
       totalCount: data.count,
-      listOfCharacters: handleCharactersAtInitialization(data.results),
+      listOfCharacters: handleCharactersAtInitialization(
+        charactersWithRewritedUrls
+      ),
     }
     dispach({
-      type: 'INIT_CHARACTERS',
+      type: 'GET_ANOTHER_PAGE_OF_CHARACTERS',
       characters,
     })
   }

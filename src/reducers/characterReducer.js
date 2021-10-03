@@ -14,6 +14,8 @@ const characterReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INIT_CHARACTERS':
       return action.characters
+    case 'GET_ANOTHER_PAGE_OF_CHARACTERS':
+      return action.characters
     default:
       return state
   }

@@ -6,11 +6,11 @@ import TBody from './TBody'
 import THead from './THead'
 
 export default function MainTable() {
-    const dispach = useDispatch()
+    const dispatch = useDispatch()
     useEffect(() => {
-        dispach(initializeCharacters())
+        dispatch(initializeCharacters())
         
-    }, [dispach])
+    }, [dispatch])
     
     return (
         <div className="tabel-container">
