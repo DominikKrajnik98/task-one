@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { initializeCharacters } from '../../actions/characterActions'
 import { initializeHomeworld } from '../../actions/homeworldActions'
